@@ -27,13 +27,6 @@ public class Solution extends Application {
     public void start(Stage stage) throws IOException {
         stage.getIcons().add(new Image("file:src\\main\\java\\logo.jpg"));
 
-//        Image image = new Image("file:src\\main\\java\\logo.jpg");
-//        ImageView imageView = new ImageView(image);
-//        imageView.setLayoutX(0);
-//        imageView.setLayoutY(0);
-//        Group root = new Group();
-//        root.getChildren().add(imageView);
-
         FXMLLoader fxmlLoader = new FXMLLoader(Solution.class.getResource("Window1.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
         stage.setTitle("iMed");
