@@ -37,11 +37,23 @@ public class Controller {
     @FXML
     void initialize() {
 
-        radioMan.setOnAction(event -> {Solution.genderMan = true;});
-        radioWoman.setOnAction(event -> {Solution.genderWoman = true;});
+        radioMan.setOnAction(event -> {
+            Solution.genderMan = true;
+            Solution.genderWoman = false;
+        });
+        radioWoman.setOnAction(event -> {
+            Solution.genderWoman = true;
+            Solution.genderMan = false;
+        });
 
-        radioProfOsm.setOnAction(event -> {Solution.profOsm = true;});
-        radioDisp.setOnAction(event -> {Solution.disp = true;});
+        radioProfOsm.setOnAction(event -> {
+            Solution.profOsm = true;
+            Solution.disp = false;
+        });
+        radioDisp.setOnAction(event -> {
+            Solution.disp = true;
+            Solution.profOsm = false;
+        });
 
         buttonTable.setOnAction(event -> {
             Solution.nameStr = name.getText();
@@ -53,11 +65,12 @@ public class Controller {
             TableButton.tableButton();
 
             try {
-                Desktop.getDesktop().open(new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx"));
+                File resultsFile = new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");
+                Desktop.getDesktop().open(new File(String.valueOf(resultsFile)));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         });
 
         buttonDelete.setOnAction(event -> {
@@ -80,20 +93,22 @@ public class Controller {
             Solution.cabinetStr = null;
             Solution.profOsm = false;
             Solution.disp = false;
-
         });
 
-//        String pattern = "dd.MM.yyyy";
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//
-//        DateFormatter dateFormatter = new DateFormatter("dd.MM.yyyy");
-//
-//        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-//
-//        data.setOnAction(event -> {
-//            data.setPrefColumnCount(10);
-//
-//        });
+
+
+//        НУЖНО ЕЩЕ:
+//        - поставить формат даты на 2 поля
+//        - поставить маску времени
+//        - прописать ошибки некорректного ввода и вывода окна ошибки
+//              - не введено фио
+//              - не введена дата рождения
+//              - некорректно введена дата рождения
+//              - не выбран пол
+//        - не выбран формат исследования
+//        чтобы открывалось через иконку на раб столе, а не через идею
+
+
 
 
 //        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

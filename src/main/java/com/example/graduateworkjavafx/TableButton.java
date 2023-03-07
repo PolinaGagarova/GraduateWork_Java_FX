@@ -4,6 +4,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -23,7 +24,7 @@ public class TableButton {
             list1.setColumnWidth(3, 3800);
             list1.setColumnWidth(4, 3800);
 
-            list1.addMergedRegion(new CellRangeAddress(1, 1, 1, 4));            //объединяеем ячейки
+            list1.addMergedRegion(new CellRangeAddress(1, 1, 1, 4));        //объединяеем ячейки
             list1.addMergedRegion(new CellRangeAddress(2, 2, 1, 4));
             list1.addMergedRegion(new CellRangeAddress(3, 4, 0, 0));
             list1.addMergedRegion(new CellRangeAddress(3, 3, 1, 2));
@@ -31,9 +32,9 @@ public class TableButton {
 
             //--------------------------------------------------------------------------------------------
 
-            XSSFCellStyle style1 = wb.createCellStyle();                //создаем стиль
-            style1.setAlignment(HorizontalAlignment.CENTER);           //выравнивание горизонтально
-            style1.setVerticalAlignment(VerticalAlignment.CENTER);    //выравнивание вертикально
+            XSSFCellStyle style1 = wb.createCellStyle();             //создаем стиль
+            style1.setAlignment(HorizontalAlignment.CENTER);         //выравнивание горизонтально
+            style1.setVerticalAlignment(VerticalAlignment.CENTER);   //выравнивание вертикально
             style1.setBorderTop(BorderStyle.THIN);                   //границы ячейки
             style1.setBorderBottom(BorderStyle.THIN);
             style1.setBorderLeft(BorderStyle.THIN);
@@ -41,16 +42,16 @@ public class TableButton {
             style1.setWrapText(true);
 
             Font font1 = wb.createFont();
-            font1.setFontHeightInPoints((short) 12);         //размер 12
+            font1.setFontHeightInPoints((short) 12);        //размер 12
             font1.setBold(true);                            //жирным
 
             style1.setFont(font1);
 
             //--------------------------------------------------------------------------------------------
 
-            XSSFCellStyle style2 = wb.createCellStyle();                //создаем стиль
-            style2.setAlignment(HorizontalAlignment.CENTER);           //выравнивание горизонтально
-            style2.setVerticalAlignment(VerticalAlignment.CENTER);    //выравнивание вертикально
+            XSSFCellStyle style2 = wb.createCellStyle();             //создаем стиль
+            style2.setAlignment(HorizontalAlignment.CENTER);         //выравнивание горизонтально
+            style2.setVerticalAlignment(VerticalAlignment.CENTER);   //выравнивание вертикально
             style2.setBorderTop(BorderStyle.THIN);                   //границы ячейки
             style2.setBorderBottom(BorderStyle.THIN);
             style2.setBorderLeft(BorderStyle.THIN);
@@ -64,13 +65,13 @@ public class TableButton {
 
             //--------------------------------------------------------------------------------------------
 
-            XSSFRow row2 = list1.createRow(1);                //аргумент = номер строки
-            XSSFCell cell2A = row2.createCell(0);         //аргумент = номер столбца
-            cell2A.setCellValue("ФИО");                             //пишем значение
+            XSSFRow row2 = list1.createRow(1);             //аргумент = номер строки
+            XSSFCell cell2A = row2.createCell(0);       //аргумент = номер столбца
+            cell2A.setCellValue("ФИО");                            //пишем значение
             cell2A.setCellStyle(style2);
 
-            XSSFCell cell2B = row2.createCell(1);
-            cell2B.setCellValue(nameStr);                           //Ставим ФИО в нужную ячейку
+            XSSFCell cell2B = row2.createCell(1);       //строка 2
+            cell2B.setCellValue(nameStr);                          //Ставим ФИО в нужную ячейку
             cell2B.setCellStyle(style2);
 
             XSSFCell cell2C = row2.createCell(2);
@@ -121,12 +122,12 @@ public class TableButton {
             cell4E.setCellStyle(style2);
 
 
-            Row row5 = list1.createRow(4);         //строка 5
+            Row row5 = list1.createRow(4);       //строка 5
             Cell cell5A = row5.createCell(0);
             cell5A.setCellStyle(style2);
 
             Cell cell5B = row5.createCell(1);
-            cell5B.setCellValue(dataStr);                 //Ставим дату в нужную ячейку
+            cell5B.setCellValue(dataStr);                //Ставим дату в нужную ячейку
             cell5B.setCellStyle(style2);
 
             Cell cell5C = row5.createCell(2);
@@ -141,7 +142,7 @@ public class TableButton {
             cell5E.setCellStyle(style2);
 
 
-            Row row6 = list1.createRow(5);          //строка 6
+            Row row6 = list1.createRow(5);       //строка 6
             Cell cell6A = row6.createCell(0);
             cell6A.setCellValue("Осмотр, исследование, мероприятие");
             cell6A.setCellStyle(style1);
@@ -173,6 +174,8 @@ public class TableButton {
             birthdayYearNow = parseInt(birthdayStr);
             fullYears = yearNow - birthdayYearNow;           //нашли кол-во полных лет на текущий год
 
+            String fullYearsStr = Integer.toString(fullYears);   //кол-во полных лет строкой
+
             //--------------------------------------------------------------------------------------------
 
             String orderTablesStr = "";
@@ -188,46 +191,55 @@ public class TableButton {
                 orderTablesInt = 2;
                 orderTablesStr = "WOMAN18-64";
             } else if (genderWoman && fullYears > 64 && fullYears < 100) {
-                orderTablesInt = 3;                                             //orderTablesInt - номер нужной таблицы
+                orderTablesInt = 3;                                           //orderTablesInt - номер нужной таблицы
                 orderTablesStr = "WOMAN65-99";                                //orderTablesStr - название нужной таблицы
             }
 
             //--------------------------------------------------------------------------------------------
 
-            FileInputStream fis = new FileInputStream("D:\\GraduateWorkJavaFX\\src\\main\\java\\OrderTables404H.xlsx");       //путь файла, ИЗ которого берем информацию
-            XSSFWorkbook wb1 = new XSSFWorkbook(fis);
+            FileInputStream fis = new FileInputStream("D:\\GraduateWorkJavaFX\\src\\main\\java\\OrderTables404H.xlsx");
+            XSSFWorkbook wb1 = new XSSFWorkbook(fis);                 //путь файла, ИЗ которого берем информацию
             XSSFSheet sheet1 = wb1.getSheetAt(orderTablesInt);
 
-            Row rowForAge = sheet1.getRow(1);
-            int minCol = rowForAge.getFirstCellNum();
-            int maxCol = rowForAge.getLastCellNum();
+            Row rowForAge = sheet1.getRow(1);      //берем вторую строку с возрастом
+            int minCol = rowForAge.getFirstCellNum();      //находим начало строки
+            int maxCol = rowForAge.getLastCellNum();       //находим конец строки
 
-            int cellForAge = -1;                                        //поиск колонки с нужным возрастом
+            int cellForAge = -1;                 //поиск индекса столбца с нужным возрастом
 
             for (int i = minCol; i < maxCol; i++) {
                 Cell cell = rowForAge.getCell(i);
 
-                if (cell == null || cell.toString().equals("")) {
-                    continue;
-                } else {
-                    int textInt = (int) cell.getNumericCellValue();
-                    if (textInt == fullYears) {
-                        cellForAge = i;
+                switch (cell.getCellType()) {
+                    case BLANK:
+                        continue;
+                    case NUMERIC:
+                        int textInt = (int) cell.getNumericCellValue();
+                        if (textInt == fullYears) {
+                            cellForAge = i;
+                            break;
+                        }
                         break;
-                    }
+                    case STRING:
+                        String textStr = cell.getStringCellValue().substring(0, 2);
+                        if (textStr.equals(fullYearsStr)) {
+                            cellForAge = i;
+                            break;
+                        }
+                        break;
                 }
             }
 
             //--------------------------------------------------------------------------------------------
 
-            list1.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+            list1.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));   //начинаем строить таблицу с исследованиями
 
             Row row1 = list1.createRow(0);          //строка 1
             Cell cell1A = row1.createCell(0);
-            if (profOsm) {
+            if (profOsm && !orderTablesStr.equals("MAN65-99") && !orderTablesStr.equals("WOMAN65-99")) {
                 cell1A.setCellValue("Профосмотр ");
             } else {
-                cell1A.setCellValue("Диспансеризация");
+                cell1A.setCellValue("Диспансеризация");          //название мероприятия
             }
             cell1A.setCellStyle(style2);
             Cell cell1B = row1.createCell(1);
@@ -239,32 +251,35 @@ public class TableButton {
             cell1D.setCellStyle(style2);
             cell1E.setCellStyle(style2);
 
-            label:
+
+            int rowResults = 6;            //строка для начала таблицы исследований
+
             switch (orderTablesStr) {
-                case "MAN18-64":                  //MAN18-64
-                    int rowResults = 6;           //строка для начала таблицы исследований
-                    int start = 2;                //строка ОТ которой смотрим исследования
-                    int end = -1;                      //строка ДО которой смотрим исследования
-
+                case "MAN18-64" -> {       //MAN18-64
+                    int startM18 = 2;      //строка ОТ которой смотрим исследования
+                    int endM18 = -1;       //строка ДО которой смотрим исследования
                     if (profOsm) {
-                        end = 13;
+                        endM18 = 13;
                     } else if (disp) {
-                        end = 19;
+                        endM18 = 19;
                     }
-
-                    boolean isFullYears = switch (fullYears) {
-                        case 18, 21, 24, 27, 30, 33, 36 -> true;
+                    boolean isFullYearsM18 = switch (fullYears) {
+                        case 18, 21, 24, 27, 30, 33, 36, 39, 40,
+                                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                                51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                                61, 62, 63, 64 -> true;
                         default -> false;
                     };
-
-                    for (int i = start; i < end; i++) {
-                        if (disp && isFullYears && i == 12) {continue;}
+                    for (int i = startM18; i < endM18; i++) {          //пропускаем повторяющийся "итоговый осмотр терапевта"
+                        if (disp && isFullYearsM18 && i == 12) {
+                            continue;
+                        }
 
                         String plus = wb1.getSheet("MAN18-64").getRow(i).getCell(cellForAge).getStringCellValue();
                         if (plus.equals("+")) {
                             String dataRES = wb1.getSheet("MAN18-64").getRow(i).getCell(3).getStringCellValue();
                             Row rowRES = list1.createRow(rowResults);
-                            Cell cellRES = rowRES.createCell(0);
+                            Cell cellRES = rowRES.createCell(0);          //если "+", то записываем название исследования в таблицу
                             cellRES.setCellValue(dataRES);
                             cellRES.setCellStyle(style2);
 
@@ -280,35 +295,113 @@ public class TableButton {
                             rowResults++;
                         }
                     }
+                }
+                case "MAN65-99" -> {        //MAN65-99
+                    int startM65 = 2;       //строка ОТ которой смотрим исследования
+                    int endM65 = 15;        //строка ДО которой смотрим исследования
+                    for (int i = startM65; i < endM65; i++) {
+                        if (i == 10) {
+                            continue;
+                        }
 
+                        String plus = wb1.getSheet("MAN65-99").getRow(i).getCell(cellForAge).getStringCellValue();
+                        if (plus.equals("+")) {
+                            String dataRES = wb1.getSheet("MAN65-99").getRow(i).getCell(1).getStringCellValue();
+                            Row rowRES = list1.createRow(rowResults);
+                            Cell cellRES = rowRES.createCell(0);          //если "+", то записываем название исследования в таблицу
+                            cellRES.setCellValue(dataRES);
+                            cellRES.setCellStyle(style2);
 
-                    break;
+                            Cell cellRES1 = rowRES.createCell(1);
+                            Cell cellRES2 = rowRES.createCell(2);
+                            Cell cellRES3 = rowRES.createCell(3);
+                            Cell cellRES4 = rowRES.createCell(4);
+                            cellRES1.setCellStyle(style2);
+                            cellRES2.setCellStyle(style2);
+                            cellRES3.setCellStyle(style2);
+                            cellRES4.setCellStyle(style2);
 
-                case "MAN65-99":                  //MAN65-99
+                            rowResults++;
+                        }
+                    }
+                }
+                case "WOMAN18-64" -> {    //WOMAN18-64
+                    int startW18 = 2;     //строка ОТ которой смотрим исследования
+                    int endW18 = -1;      //строка ДО которой смотрим исследования
+                    if (profOsm) {
+                        endW18 = 14;
+                    } else if (disp) {
+                        endW18 = 22;
+                    }
+                    boolean isFullYearsW18 = switch (fullYears) {
+                        case 18, 21, 24, 27, 30, 33, 36, 39, 40,
+                                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                                51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                                61, 62, 63, 64 -> true;
+                        default -> false;
+                    };
+                    for (int i = startW18; i < endW18; i++) {         //пропускаем повторяющийся "итоговый осмотр терапевта"
+                        if (disp && isFullYearsW18 && i == 13) {
+                            continue;
+                        }
 
-                    break;
+                        String plus = wb1.getSheet("WOMAN18-64").getRow(i).getCell(cellForAge).getStringCellValue();
+                        if (plus.equals("+")) {
+                            String dataRES = wb1.getSheet("WOMAN18-64").getRow(i).getCell(3).getStringCellValue();
+                            Row rowRES = list1.createRow(rowResults);
+                            Cell cellRES = rowRES.createCell(0);          //если "+", то записываем название исследования в таблицу
+                            cellRES.setCellValue(dataRES);
+                            cellRES.setCellStyle(style2);
 
-                case "WOMAN18-64":                //WOMAN18-64
+                            Cell cellRES1 = rowRES.createCell(1);
+                            Cell cellRES2 = rowRES.createCell(2);
+                            Cell cellRES3 = rowRES.createCell(3);
+                            Cell cellRES4 = rowRES.createCell(4);
+                            cellRES1.setCellStyle(style2);
+                            cellRES2.setCellStyle(style2);
+                            cellRES3.setCellStyle(style2);
+                            cellRES4.setCellStyle(style2);
 
-                    break;
+                            rowResults++;
+                        }
+                    }
+                }
+                case "WOMAN65-99" -> {         //WOMAN65-99
+                    int startW65 = 2;          //строка ОТ которой смотрим исследования
+                    int endW65 = 17;           //строка ДО которой смотрим исследования
+                    for (int i = startW65; i < endW65; i++) {
+                        if (i == 10) {
+                            continue;
+                        }
 
-                case "WOMAN65-99":                //WOMAN65-99
+                        String plus = wb1.getSheet("WOMAN65-99").getRow(i).getCell(cellForAge).getStringCellValue();
+                        if (plus.equals("+")) {
+                            String dataRES = wb1.getSheet("WOMAN65-99").getRow(i).getCell(1).getStringCellValue();
+                            Row rowRES = list1.createRow(rowResults);
+                            Cell cellRES = rowRES.createCell(0);          //если "+", то записываем название исследования в таблицу
+                            cellRES.setCellValue(dataRES);
+                            cellRES.setCellStyle(style2);
 
-                    break;
+                            Cell cellRES1 = rowRES.createCell(1);
+                            Cell cellRES2 = rowRES.createCell(2);
+                            Cell cellRES3 = rowRES.createCell(3);
+                            Cell cellRES4 = rowRES.createCell(4);
+                            cellRES1.setCellStyle(style2);
+                            cellRES2.setCellStyle(style2);
+                            cellRES3.setCellStyle(style2);
+                            cellRES4.setCellStyle(style2);
+
+                            rowResults++;
+                        }
+                    }
+                }
             }
-
-
-            //String dataInResults = wb1.getSheet(orderTablesStr).getRow(rowForAge).getCell(cellForAge).getStringCellValue();       //номер таблицы, колонки, строки, берем информацию из нужной ячейки
-
             fis.close();
 
-//            XSSFRow row123 = list1.createRow(7);             //аргумент = номер строки
-//            XSSFCell cell123 = row123.createCell(7);        //аргумент = номер столбца
-//            cell123.setCellValue(dataInResults);           //пишем значение
-//
-            FileOutputStream fos = new FileOutputStream("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");      //путь к нашему файлу
-            wb.write(fos);                                                             //записываем книгу в наш файл, fos - поток файла
-            fos.close();                                                              //закрываем поток
+            File resultsFile = new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");     //путь к итоговому файлу
+            FileOutputStream fos = new FileOutputStream(resultsFile);
+            wb.write(fos);            //записываем книгу в наш файл, fos - поток файла
+            fos.close();              //закрываем поток
 
         } catch (Exception e) {
             e.printStackTrace();
