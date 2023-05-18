@@ -118,7 +118,7 @@
                               <Image url="@../../../../java/logo.jpg" />
                           </image>
                       </ImageView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="304.0" layoutY="7.0" text="iMed">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="220.0" layoutY="7.0" text="Мое здоровье">
                             <font>
                                 <Font name="Comic Sans MS" size="40.0" />
                             </font>

@@ -197,7 +197,8 @@ public class TableButton {
 
             //--------------------------------------------------------------------------------------------
 
-            FileInputStream fis = new FileInputStream("D:\\GraduateWorkJavaFX\\src\\main\\java\\OrderTables404H.xlsx");
+            //FileInputStream fis = new FileInputStream("D:\\GraduateWorkJavaFX\\src\\main\\java\\OrderTables404H.xlsx");
+            FileInputStream fis = new FileInputStream("src/main/java/OrderTables404H.xlsx");
             XSSFWorkbook wb1 = new XSSFWorkbook(fis);                 //путь файла, ИЗ которого берем информацию
             XSSFSheet sheet1 = wb1.getSheetAt(orderTablesInt);
 
@@ -398,7 +399,8 @@ public class TableButton {
             }
             fis.close();
 
-            File resultsFile = new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");     //путь к итоговому файлу
+            //File resultsFile = new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");     //путь к итоговому файлу
+            File resultsFile = new File("src/main/java/results.xlsx");
             FileOutputStream fos = new FileOutputStream(resultsFile);
             wb.write(fos);            //записываем книгу в наш файл, fos - поток файла
             fos.close();              //закрываем поток

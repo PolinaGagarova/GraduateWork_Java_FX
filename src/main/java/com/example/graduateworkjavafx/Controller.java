@@ -9,6 +9,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+import static com.example.graduateworkjavafx.Solution.birthdayStr;
+import static java.lang.Integer.parseInt;
+
 public class Controller {
 
     @FXML
@@ -62,14 +65,68 @@ public class Controller {
             Solution.timeStr = time.getText();
             Solution.cabinetStr = cabinet.getText();
 
-            TableButton.tableButton();
 
-            try {
-                File resultsFile = new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");
-                Desktop.getDesktop().open(new File(String.valueOf(resultsFile)));
+            if (Solution.nameStr == null || Solution.nameStr.equals("")) {
+                Solution.stop = true;
+                Solution.infoBox("Введите ФИО", "Некорректный ввод данных");
+            }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (Solution.birthdayStr == null || Solution.birthdayStr.equals("")) {
+                Solution.stop = true;
+                Solution.infoBox("Введите дату рождения", "Некорректный ввод данных");
+            } else {
+                String[] birthdaySplit = birthdayStr.split("\\.");
+                int birthdayYear = parseInt(birthdaySplit[birthdaySplit.length - 1]);
+                if (Solution.yearNow - birthdayYear < 18 || Solution.yearNow - birthdayYear > 99) {
+                    Solution.stop = true;
+                    Solution.infoBox("Неверно введена дата рождения", "Некорректный ввод данных");
+                }
+            }
+
+//            String[] birthdaySplit = birthdayStr.split("\\.");
+//            int birthdayYear = parseInt(birthdaySplit[birthdaySplit.length - 1]);
+//            if (Solution.yearNow - birthdayYear < 18 || Solution.yearNow - birthdayYear > 99) {
+//                Solution.stop = true;
+//                Solution.infoBox("Неверно введена дата рождения", "Некорректный ввод данных");
+//            }
+
+            if (!Solution.genderMan && !Solution.genderWoman) {
+                Solution.stop = true;
+                Solution.infoBox("Выберите пол", "Некорректный ввод данных");
+            }
+
+            if (Solution.dataStr == null || Solution.dataStr.equals("")) {
+                Solution.stop = true;
+                Solution.infoBox("Введите дату для явки", "Некорректный ввод данных");
+            }
+
+            if (Solution.timeStr == null || Solution.timeStr.equals("")) {
+                Solution.stop = true;
+                Solution.infoBox("Введите время для явки", "Некорректный ввод данных");
+            }
+
+            if (Solution.cabinetStr == null || Solution.cabinetStr.equals("")) {
+                Solution.stop = true;
+                Solution.infoBox("Введите кабинет для явки", "Некорректный ввод данных");
+            }
+
+            if (!Solution.profOsm && !Solution.disp) {
+                Solution.stop = true;
+                Solution.infoBox("Выберите формат обследования", "Некорректный ввод данных");
+            }
+
+
+            if (!Solution.stop) {
+                TableButton.tableButton();
+
+                try {
+                    //File resultsFile = new File("D:\\GraduateWorkJavaFX\\src\\main\\java\\results.xlsx");
+                    File resultsFile = new File("src/main/java/results.xlsx");
+                    Desktop.getDesktop().open(new File(String.valueOf(resultsFile)));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -96,38 +153,10 @@ public class Controller {
         });
 
 
-
 //        НУЖНО ЕЩЕ:
 //        - поставить формат даты на 2 поля
 //        - поставить маску времени
-//        - прописать ошибки некорректного ввода и вывода окна ошибки
-//              - не введено фио
-//              - не введена дата рождения
-//              - некорректно введена дата рождения
-//              - не выбран пол
-//        - не выбран формат исследования
-//        чтобы открывалось через иконку на раб столе, а не через идею
-
-
-
-
-//        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-//        DateFormatter dateFormatter = new DateFormatter(data);
-//        dateFormatter.setAllowsInvalid(true);             //запрет ввода неверных значений
-//        dateFormatter.setOverwriteMode(true);             //режим перезаписи значений
-//        JFormattedTextField formattedTextField = new JFormattedTextField(dateFormat);
-//
-//        dateFormat.format(data);
-//
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-//        birthday.setText(simpleDateFormat.format(birthday.getOnAction()));
-
-//        birthday.setOnAction(event -> {
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-//            DateFormatter dateFormatter = new DateFormatter(simpleDateFormat);
-//            dateFormatter.setAllowsInvalid(true);
-//            dateFormatter.setOverwriteMode(true);
-//        });
+//        - чтобы открывалось через иконку на раб столе, а не через идею
 
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -22,6 +23,7 @@ public class Solution extends Application {
     public static String cabinetStr = null;
     public static boolean profOsm = false;
     public static boolean disp = false;
+    public static boolean stop = false;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,9 +31,13 @@ public class Solution extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Solution.class.getResource("Window1.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
-        stage.setTitle("iMed");
+        stage.setTitle("Мое здоровье");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void infoBox(String infoMessage, String titleBar) {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void main(String[] args) {
